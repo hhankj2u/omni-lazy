@@ -1,5 +1,3 @@
-# README
-
 ## About
 A versatile and flexible application designed to handle a wide variety of tasks or data inputs without the need for specialized tools.
 A Swiss Army knife that can perform multiple functions with just one tool.

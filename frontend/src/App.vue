@@ -1,12 +1,46 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'</script>
+import { ref } from 'vue';
+import Translators from './components/Translators.vue';
+import Prompts from './components/Prompts.vue';
+
+const activeTab = ref('Translators');
+</script>
 
 <template>
-  <img id="logo" alt="Wails logo" src="./assets/images/logo-universal.png"/>
-  <HelloWorld/>
+  <div>
+    <div class="tabs">
+      <button :class="{ active: activeTab === 'Translators' }" @click="activeTab = 'Translators'">Translators</button>
+      <button :class="{ active: activeTab === 'Prompts' }" @click="activeTab = 'Prompts'">Prompts</button>
+    </div>
+    <div class="tab-content">
+      <Translators v-if="activeTab === 'Translators'" />
+      <Prompts v-if="activeTab === 'Prompts'" />
+    </div>
+  </div>
 </template>
 
 <style>
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.tab-content {
+  padding: 20px;
+}
+
 #logo {
   display: block;
   width: 50%;
