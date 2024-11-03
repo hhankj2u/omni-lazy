@@ -43,7 +43,7 @@
     setup() {
       const echoInput = ref('');
       const selectedPattern = ref('');
-      const language = ref('english');
+      const language = ref('en');
       const dryRun = ref(false);
       const patterns = ref([]);
       const results = ref([]);
