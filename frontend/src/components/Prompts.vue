@@ -1,7 +1,7 @@
 <template>
   <div id="prompts">
     <div class="input-container">
-      <input v-model="prompt" placeholder="Enter prompt" />
+      <input v-model="prompt" placeholder="Enter prompt" @keyup.enter="submitPrompt" />
       <button @click="submitPrompt">Submit</button>
     </div>
     <div class="results-container">
@@ -42,7 +42,6 @@ export default {
 
 .input-container {
   display: flex;
-  margin-bottom: 20px;
   justify-content: center;
 }
 
@@ -53,8 +52,14 @@ export default {
 }
 
 .results-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-evenly;
+    height: calc(100vh - 80px);
+    /* Adjust for input/button height */
+    overflow-y: auto;
+    /* Add scrolling if content exceeds height */
 }
 </style>
