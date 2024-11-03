@@ -11,12 +11,6 @@
             </label>
             <button @click="submitPrompt" :disabled="loading">Submit</button>
         </div>
-        <!-- <button class="toggle-settings-button" @click="toggleSettings">
-            {{ settingsCollapsed ? 'Show Settings' : 'Hide Settings' }}
-        </button> -->
-        <div class="settings-container" :class="{ collapsed: settingsCollapsed }">
-            <input v-model="fabricPath" placeholder="Path to fabric executable" class="fabric-path" />
-        </div>
         <div class="results-container">
             <div v-for="(result, index) in results" :key="index" class="result-item">
                 <div class="input-display">
@@ -49,8 +43,16 @@ export default {
         const patterns = ref([]);
         const results = ref([]);
         const loading = ref(false);
-        const fabricPath = ref('fabric'); // Default path to fabric executable
-        const settingsCollapsed = ref(true);
+        const fabricPath = ref('');
+
+        const detectOSAndSetFabricPath = () => {
+            const userAgent = navigator.userAgent;
+            if (userAgent.includes('Win')) {
+                fabricPath.value = '%USERPROFILE%\\fabric.exe';
+            } else {
+                fabricPath.value = 'fabric';
+            }
+        };
 
         const fetchPatterns = async () => {
             try {
@@ -88,12 +90,10 @@ export default {
             results.value = [];
         };
 
-        const toggleSettings = async () => {
-            settingsCollapsed.value = !settingsCollapsed.value;
-            await fetchPatterns();
-        };
-
-        onMounted(fetchPatterns);
+        onMounted(() => {
+            detectOSAndSetFabricPath();
+            fetchPatterns();
+        });
 
         return {
             echoInput,
@@ -104,10 +104,8 @@ export default {
             results,
             loading,
             fabricPath,
-            settingsCollapsed,
             submitPrompt,
             clearResults,
-            toggleSettings,
         };
     }
 };
@@ -148,46 +146,6 @@ export default {
 .input-container .language {
     width: 50px;
     text-align: center;
-}
-
-.toggle-settings-button {
-    position: fixed;
-    top: 10px;
-    /* Adjust this value to fit your layout */
-    right: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-.toggle-settings-button:hover {
-    background-color: #0056b3;
-}
-
-.settings-container {
-    position: fixed;
-    top: 100px;
-    /* Adjust this value to fit your layout */
-    right: 20px;
-    background-color: white;
-    z-index: 100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 300px;
-    transition: transform 0.3s ease;
-}
-
-.settings-container.collapsed {
-    transform: translateY(-100%);
-}
-
-.settings-container .fabric-path {
-    width: 96%;
-    padding: 10px;
 }
 
 .results-container {

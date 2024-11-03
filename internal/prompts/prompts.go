@@ -1,7 +1,9 @@
 package prompts
 
 import (
+	"log"
 	"os/exec"
+	"runtime"
 	"strings"
 )
 
@@ -14,7 +16,13 @@ func NewPrompt() *Prompt {
 
 // FetchFabricResult executes the fabric command with the given options and returns the result
 func (p *Prompt) FetchFabricResult(command string) (string, error) {
-	cmd := exec.Command("sh", "-c", command)
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/C", command)
+	} else {
+		cmd = exec.Command("sh", "-c", command)
+		log.Println("command: ", cmd)
+	}
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return "", err
