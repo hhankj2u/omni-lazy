@@ -6,10 +6,6 @@ export function FetchFabricResult(arg1) {
   return window['go']['main']['App']['FetchFabricResult'](arg1);
 }
 
-export function ListPatterns() {
-  return window['go']['main']['App']['ListPatterns']();
-}
-
 export function ReadClipboard() {
   return window['go']['main']['App']['ReadClipboard']();
 }

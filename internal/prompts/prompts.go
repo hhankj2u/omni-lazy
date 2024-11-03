@@ -21,14 +21,3 @@ func (p *Prompt) FetchFabricResult(command string) (string, error) {
 	}
 	return strings.TrimSpace(string(output)), nil
 }
-
-// ListPatterns fetches the list of patterns from fabric
-func (p *Prompt) ListPatterns() ([]string, error) {
-	cmd := exec.Command("fabric", "--listpatterns")
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return nil, err
-	}
-	patterns := strings.Split(strings.TrimSpace(string(output)), "\n")
-	return patterns, nil
-}

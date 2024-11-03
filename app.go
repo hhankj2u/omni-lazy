@@ -36,10 +36,6 @@ func (a *App) FetchFabricResult(command string) (string, error) {
 	return a.prompt.FetchFabricResult(command)
 }
 
-func (a *App) ListPatterns() ([]string, error) {
-	return a.prompt.ListPatterns()
-}
-
 // ReadClipboard reads the clipboard content
 func (a *App) ReadClipboard() (string, error) {
 	return clipboard.ReadAll()

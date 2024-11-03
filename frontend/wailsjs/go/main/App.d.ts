@@ -3,8 +3,6 @@
 
 export function FetchFabricResult(arg1:string):Promise<string>;
 
-export function ListPatterns():Promise<Array<string>>;
-
 export function ReadClipboard():Promise<string>;
 
 export function SearchDictionary(arg1:string):Promise<{[key: string]: string}>;
