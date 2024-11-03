@@ -23,7 +23,7 @@ const activeTab = ref('Translators');
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .tabs button {
@@ -38,7 +38,7 @@ const activeTab = ref('Translators');
 }
 
 .tab-content {
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 #logo {

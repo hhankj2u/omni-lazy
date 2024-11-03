@@ -94,10 +94,10 @@ export default {
 .input-container {
   display: flex;
   /* Use flex to align input and button */
-  margin-bottom: 20px;
-  /* Space between input/button and results */
   justify-content: center;
   /* Center children horizontally */
+  align-items: center;
+  /* Center children vertically */
 }
 
 .input-container input {
