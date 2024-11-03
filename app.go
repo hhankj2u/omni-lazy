@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 
-	translators "github.com/hhankj2u/omni-lazy/internal/translators"
+	"github.com/hhankj2u/omni-lazy/internal/prompts"
+	"github.com/hhankj2u/omni-lazy/internal/translators"
 
 	"github.com/atotto/clipboard"
 )
@@ -12,6 +13,7 @@ import (
 type App struct {
 	ctx         context.Context
 	translators *translators.Translators
+	prompt      *prompts.Prompt
 }
 
 // NewApp creates a new App application struct
@@ -28,6 +30,14 @@ func (a *App) startup(ctx context.Context) {
 
 func (a *App) SearchDictionary(term string) (map[string]string, error) {
 	return a.translators.SearchDictionary(term)
+}
+
+func (a *App) FetchFabricResult(command string) (string, error) {
+	return a.prompt.FetchFabricResult(command)
+}
+
+func (a *App) ListPatterns() ([]string, error) {
+	return a.prompt.ListPatterns()
 }
 
 // ReadClipboard reads the clipboard content

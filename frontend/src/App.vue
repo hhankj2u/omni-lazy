@@ -23,13 +23,21 @@ const activeTab = ref('Translators');
 .tabs {
   display: flex;
   justify-content: center;
-  /* margin-bottom: 20px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tabs button {
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin: 0 5px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .tabs button.active {
@@ -38,7 +46,7 @@ const activeTab = ref('Translators');
 }
 
 .tab-content {
-  /* padding: 20px; */
+  margin-top: 40px; /* Adjust this value to match the height of the tabs */
 }
 
 #logo {

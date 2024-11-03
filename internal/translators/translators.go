@@ -1,4 +1,4 @@
-package app
+package translators
 
 import (
 	"database/sql"
@@ -23,7 +23,7 @@ func NewTranslators() *Translators {
 }
 
 // SearchDictionary performs the dictionary search and returns the result HTML from all dictionaries
-func (a *Translators) SearchDictionary(term string) (map[string]string, error) {
+func (t *Translators) SearchDictionary(term string) (map[string]string, error) {
 	dictionaries := map[string]dicts.Dictionary{
 		settings.WEBSTER:   dicts.WebsterDictionary{},
 		settings.CAMBRIDGE: dicts.CambridgeDictionary{},
@@ -39,7 +39,7 @@ func (a *Translators) SearchDictionary(term string) (map[string]string, error) {
 		wg.Add(1)
 		go func(name string, dictionary dicts.Dictionary) {
 			defer wg.Done()
-			con := a.dbConnections[name]
+			con := t.dbConnections[name]
 			_, soup, err := dictionary.Search(con, term, false)
 			if err != nil {
 				errChan <- fmt.Errorf("error searching %s dictionary: %w", name, err)
