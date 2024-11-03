@@ -7,5 +7,5 @@ It pertains to the idea of simplifying task management by centralizing different
 
 ## Features
 
-- [Translators](https://github.com/hhankj2u/go-translators)
-- [AI Prompts Fabrid](https://github.com/danielmiessler/fabric)
+- Translators: https://github.com/hhankj2u/go-translators
+- Prompts: https://github.com/danielmiessler/fabric
