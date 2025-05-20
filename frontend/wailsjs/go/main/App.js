@@ -6,6 +6,10 @@ export function FetchFabricResult(arg1) {
   return window['go']['main']['App']['FetchFabricResult'](arg1);
 }
 
+export function ProcessStyleSage(arg1) {
+  return window['go']['main']['App']['ProcessStyleSage'](arg1);
+}
+
 export function ReadClipboard() {
   return window['go']['main']['App']['ReadClipboard']();
 }

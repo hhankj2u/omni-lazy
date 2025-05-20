@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import Translators from './components/Translators.vue';
 import Prompts from './components/Prompts.vue';
+import StyleSage from './components/StyleSage.vue';
 
 const activeTab = ref('Translators');
 </script>
@@ -11,10 +12,12 @@ const activeTab = ref('Translators');
     <div class="tabs">
       <button :class="{ active: activeTab === 'Translators' }" @click="activeTab = 'Translators'">Translators</button>
       <button :class="{ active: activeTab === 'Prompts' }" @click="activeTab = 'Prompts'">Prompts</button>
+      <button :class="{ active: activeTab === 'StyleSage' }" @click="activeTab = 'StyleSage'">StyleSage</button>
     </div>
     <div class="tab-content">
       <Translators v-if="activeTab === 'Translators'" />
       <Prompts v-if="activeTab === 'Prompts'" />
+      <StyleSage v-if="activeTab === 'StyleSage'" />
     </div>
   </div>
 </template>
