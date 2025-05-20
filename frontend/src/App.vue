@@ -50,6 +50,8 @@ const toggleMenu = () => {
   display: flex;
   min-height: 100vh;
   background-color: #f8fafc;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .menu-toggle {
@@ -59,7 +61,7 @@ const toggleMenu = () => {
   width: 32px;
   height: 32px;
   background: white;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
   cursor: pointer;
   color: #64748b;
@@ -156,12 +158,14 @@ const toggleMenu = () => {
 .tab-content {
   flex: 1;
   padding: 16px;
-  margin-left: 56px;
-  transition: margin-left 0.3s ease;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 32px;
 }
 
 .tab-content.menu-open {
-  margin-left: 212px;
+  margin-left: 200px;
 }
 
 .menu-backdrop {
@@ -184,6 +188,10 @@ const toggleMenu = () => {
 }
 
 @media (max-width: 768px) {
+  .app-container {
+    padding-left: 0;
+  }
+
   .side-menu {
     left: -240px;
     width: 240px;
