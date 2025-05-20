@@ -97,16 +97,22 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   width: 100%;
   box-sizing: border-box;
+  background-color: #1e2227;
+  color: #a9b1ba;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-container {
-  background: white;
+  background: #1e2227;
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #252931;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .input-header {
@@ -122,14 +128,14 @@ export default {
 
 .header-left h2 {
   margin: 0;
-  color: #2563eb;
+  color: #60a5fa;
   font-size: 24px;
   font-weight: 600;
 }
 
 .subtitle {
   margin: 4px 0 0;
-  color: #64748b;
+  color: #636973;
   font-size: 14px;
 }
 
@@ -148,21 +154,22 @@ export default {
 .search-group input {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #252931;
   border-radius: 6px;
   font-size: 14px;
-  background-color: #f9fafb;
+  background-color: #252931;
+  color: #a9b1ba;
 }
 
 .search-group input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 1px #2563eb;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
 }
 
 .search-group button {
   padding: 8px 16px;
-  background-color: #2563eb;
+  background-color: #3b82f6;
   color: white;
   border: none;
   border-radius: 6px;
@@ -174,14 +181,14 @@ export default {
 }
 
 .search-group button:hover {
-  background-color: #1d4ed8;
+  background-color: #2563eb;
 }
 
 .clipboard-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #64748b;
+  color: #636973;
   font-size: 13px;
   cursor: pointer;
   padding: 4px 0;
@@ -190,10 +197,11 @@ export default {
 .clipboard-toggle input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #252931;
   border-radius: 4px;
   cursor: pointer;
   margin: 0;
+  background-color: #252931;
 }
 
 .results-container {
@@ -202,16 +210,19 @@ export default {
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
+  flex: 1;
+  min-height: 0; /* Important for Firefox */
 }
 
 .result-item {
-  background: white;
+  background: #1e2227;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #252931;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   height: auto;
+  min-height: 0; /* Important for Firefox */
 }
 
 .result-item h2 {
@@ -219,16 +230,18 @@ export default {
   padding: 16px 20px;
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
-  background-color: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
+  color: #a9b1ba;
+  background-color: #252931;
+  border-bottom: 1px solid #252931;
+  flex-shrink: 0;
 }
 
 iframe {
   flex: 1;
   border: none;
   width: 100%;
-  min-height: 400px;
+  height: 100%;
+  min-height: 0; /* Important for Firefox */
   background: white;
 }
 

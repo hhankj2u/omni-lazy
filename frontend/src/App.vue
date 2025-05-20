@@ -46,12 +46,23 @@ const toggleMenu = () => {
 </template>
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #1e1e1e;
+}
+
 .app-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #1e2227;
+  color: #a9b1ba;
   display: flex;
-  min-height: 100vh;
-  background-color: #f8fafc;
+  flex-direction: column;
   box-sizing: border-box;
   position: relative;
+  overflow-x: hidden;
 }
 
 .menu-toggle {
@@ -60,11 +71,11 @@ const toggleMenu = () => {
   top: 12px;
   width: 32px;
   height: 32px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: #1a1a1a;
+  border: 1px solid #333333;
   border-radius: 6px;
   cursor: pointer;
-  color: #64748b;
+  color: #808080;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,8 +85,8 @@ const toggleMenu = () => {
 }
 
 .menu-toggle:hover {
-  color: #2563eb;
-  background: #f8fafc;
+  color: #e5e7eb;
+  background: #333333;
 }
 
 .hamburger {
@@ -114,8 +125,8 @@ const toggleMenu = () => {
   top: 0;
   bottom: 0;
   width: 200px;
-  background: white;
-  border-right: 1px solid #e2e8f0;
+  background: #1e1e1e;
+  border-right: 1px solid #333333;
   transition: all 0.3s ease;
   z-index: 40;
 }
@@ -138,7 +149,7 @@ const toggleMenu = () => {
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: #64748b;
+  color: #808080;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -146,8 +157,8 @@ const toggleMenu = () => {
 }
 
 .menu-items button:hover {
-  background-color: #f1f5f9;
-  color: #2563eb;
+  background-color: #333333;
+  color: #e5e7eb;
 }
 
 .menu-items button.active {
@@ -162,10 +173,13 @@ const toggleMenu = () => {
   width: 100%;
   box-sizing: border-box;
   margin-left: 32px;
+  background-color: #1e2227;
+  max-width: calc(100vw - 48px);
 }
 
 .tab-content.menu-open {
   margin-left: 200px;
+  max-width: calc(100vw - 216px);
 }
 
 .menu-backdrop {
@@ -204,10 +218,12 @@ const toggleMenu = () => {
   .tab-content {
     margin-left: 0;
     padding: 12px;
+    max-width: 100vw;
   }
 
   .tab-content.menu-open {
     margin-left: 0;
+    max-width: 100vw;
   }
 }
 </style>

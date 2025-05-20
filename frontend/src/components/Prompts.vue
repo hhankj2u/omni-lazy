@@ -137,15 +137,15 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     width: 100%;
     box-sizing: border-box;
-    text-align: left;
-    overflow-x: hidden;
+    background-color: #1e2227;
+    color: #a9b1ba;
 }
 
 .input-container {
-    background: white;
+    background: #1e2227;
     border-radius: 12px;
     padding: 20px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -164,47 +164,46 @@ export default {
 
 .header-left h2 {
     margin: 0;
-    color: #2563eb;
+    color: #60a5fa;
     font-size: 24px;
     font-weight: 600;
 }
 
 .subtitle {
     margin: 4px 0 0;
-    color: #64748b;
+    color: #636973;
     font-size: 14px;
 }
 
 .header-controls {
-    flex: 1;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 300px;
 }
 
 .header-controls textarea {
     width: 100%;
     min-height: 100px;
     padding: 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     border-radius: 8px;
     font-size: 14px;
     line-height: 1.6;
     resize: vertical;
-    background-color: #f9fafb;
-    color: #1f2937;
+    background-color: #252931;
+    color: #a9b1ba;
     box-sizing: border-box;
 }
 
 .header-controls textarea:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
 }
 
 .header-controls textarea::placeholder {
-    color: #94a3b8;
+    color: #636973;
 }
 
 .controls-row {
@@ -216,87 +215,81 @@ export default {
 .pattern-select {
     flex: 1;
     min-width: 200px;
+    background-color: #252931;
+    border-radius: 6px;
+    color: #a9b1ba;
 }
 
 :deep(.v-select) {
-    background: white;
+    background: transparent;
     border-radius: 6px;
     font-size: 14px;
+    color: #a9b1ba;
 }
 
 :deep(.vs__dropdown-toggle) {
-    border-color: #e5e7eb;
+    background-color: #252931;
+    border: 1px solid #252931;
     border-radius: 6px;
     padding: 4px 8px;
-    background-color: #f9fafb;
     min-height: 36px;
 }
 
-:deep(.vs__dropdown-toggle:hover) {
-    border-color: #94a3b8;
+:deep(.vs__selected) {
+    color: #a9b1ba;
+    background: transparent;
 }
 
-:deep(.vs__dropdown-toggle:focus) {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
+:deep(.vs__search) {
+    color: #a9b1ba;
+    background: transparent;
+}
+
+:deep(.vs__dropdown-menu) {
+    background: #1a1d21;
+    border: 1px solid #252931;
+    color: #a9b1ba;
+}
+
+:deep(.vs__dropdown-option) {
+    color: #a9b1ba;
+}
+
+:deep(.vs__dropdown-option--highlight) {
+    background: #252931;
+    color: #60a5fa;
+}
+
+:deep(.vs__clear, .vs__open-indicator) {
+    fill: #636973;
 }
 
 :deep(.vs__selected-options) {
-    padding: 2px 0;
-    gap: 4px;
-}
-
-:deep(.vs__deselect) {
-    margin-left: 4px;
-    fill: #94a3b8;
-    padding: 0;
-    height: 14px;
-    width: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
-
-:deep(.vs__deselect:hover) {
-    background: #f1f5f9;
-    fill: #64748b;
-}
-
-:deep(.vs__selected) {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    background: #f1f5f9;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 13px;
-    color: #1f2937;
-    line-height: 1.2;
+    background: transparent;
 }
 
 .language {
     width: 60px;
     padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     border-radius: 6px;
     font-size: 14px;
     text-align: center;
-    background-color: #f9fafb;
+    background-color: #252931;
+    color: #a9b1ba;
 }
 
 .language:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
 }
 
 .dry-run-toggle {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #64748b;
+    color: #636973;
     font-size: 13px;
     cursor: pointer;
     padding: 4px 0;
@@ -306,15 +299,16 @@ export default {
 .dry-run-toggle input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     border-radius: 4px;
     cursor: pointer;
     margin: 0;
+    background-color: #252931;
 }
 
 button {
     padding: 8px 16px;
-    background-color: #2563eb;
+    background-color: #3b82f6;
     color: white;
     border: none;
     border-radius: 6px;
@@ -331,7 +325,7 @@ button {
 }
 
 button:hover:not(:disabled) {
-    background-color: #1d4ed8;
+    background-color: #2563eb;
 }
 
 button:disabled {
@@ -362,10 +356,10 @@ button:disabled {
 }
 
 .result-item {
-    background: white;
+    background: #1e2227;
     border-radius: 12px;
     padding: 20px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     width: 100%;
     box-sizing: border-box;
 }
@@ -375,28 +369,29 @@ button:disabled {
 }
 
 .input-display {
-    background-color: #f8fafc;
+    background-color: #1a1d21;
     padding: 12px 16px;
     border-radius: 8px;
     font-size: 13px;
-    color: #64748b;
+    color: #636973;
     line-height: 1.5;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #252931;
     display: block;
     width: 100%;
     box-sizing: border-box;
+    text-align: left;
 }
 
 .input-display strong {
-    color: #475569;
+    color: #a9b1ba;
     font-weight: 600;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin-right: 8px;
 }
 
 .input-display code {
-    color: #1e40af;
+    color: #60a5fa;
     font-weight: 500;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -405,7 +400,8 @@ button:disabled {
 .result-display {
     font-size: 14px;
     line-height: 1.6;
-    color: #1f2937;
+    color: #a9b1ba;
+    text-align: left;
 }
 
 /* Style JSON-like output */
@@ -416,22 +412,25 @@ button:disabled {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: left;
 }
 
 .result-display ul {
     margin: 12px 0;
     padding-left: 24px;
     list-style-type: disc;
+    text-align: left;
 }
 
 .result-display li {
     margin: 8px 0;
     line-height: 1.5;
-    color: #374151;
+    color: #a9b1ba;
+    text-align: left;
 }
 
 .result-display li::marker {
-    color: #94a3b8;
+    color: #636973;
 }
 
 .clear-button {
