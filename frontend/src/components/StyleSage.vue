@@ -2,31 +2,39 @@
     <div id="stylesage">
         <div class="input-container">
             <div class="input-header">
-                <h2>Text Assistant</h2>
-                <p class="subtitle">Enhance your writing with AI-powered suggestions</p>
-            </div>
-
-            <div class="controls">
-                <div class="mode-select control-group">
-                    <label>Mode:</label>
-                    <select v-model="selectedMode" class="styled-select">
-                        <option value="quick_fix">✍️ Quick Fix (Grammar & Spelling)</option>
-                        <option value="slack_message">💬 Slack Message</option>
-                        <option value="email_reply">📧 Email Reply</option>
-                        <option value="daily_chat">🗣️ Daily Chat</option>
-                        <option value="meeting_summary">📝 Meeting Summary</option>
-                        <option value="status_update">📊 Status Update</option>
-                    </select>
+                <div class="header-left">
+                    <h2>Text Assistant</h2>
+                    <p class="subtitle">Enhance your writing with AI-powered suggestions</p>
                 </div>
+                <div class="header-controls">
+                    <div class="mode-select control-group">
+                        <select v-model="selectedMode" class="styled-select">
+                            <option value="quick_fix">✍️ Quick Fix</option>
+                            <option value="slack_message">💬 Slack</option>
+                            <option value="email_reply">📧 Email</option>
+                            <option value="daily_chat">🗣️ Chat</option>
+                            <option value="meeting_summary">📝 Summary</option>
+                            <option value="status_update">📊 Status</option>
+                        </select>
+                    </div>
 
-                <div v-if="selectedMode !== 'quick_fix'" class="style-select control-group">
-                    <label>Tone:</label>
-                    <select v-model="selectedStyle" class="styled-select">
-                        <option value="friendly">😊 Friendly & Warm</option>
-                        <option value="neutral">😐 Neutral & Clear</option>
-                        <option value="formal">👔 Formal & Professional</option>
-                        <option value="enthusiastic">🌟 Enthusiastic & Energetic</option>
-                    </select>
+                    <div v-if="selectedMode !== 'quick_fix'" class="style-select control-group">
+                        <select v-model="selectedStyle" class="styled-select">
+                            <option value="friendly">😊 Friendly</option>
+                            <option value="neutral">😐 Neutral</option>
+                            <option value="formal">👔 Formal</option>
+                            <option value="enthusiastic">🌟 Energetic</option>
+                        </select>
+                    </div>
+
+                    <button
+                        @click="processText"
+                        :disabled="loading || !inputText.trim()"
+                        class="process-button"
+                    >
+                        <span v-if="loading" class="loading-spinner"></span>
+                        {{ loading ? 'Processing...' : 'Process' }}
+                    </button>
                 </div>
             </div>
 
@@ -38,14 +46,6 @@
                     @input="autoGrow"
                     ref="textarea"
                 ></textarea>
-                <button
-                    @click="processText"
-                    :disabled="loading || !inputText.trim()"
-                    class="process-button"
-                >
-                    <span v-if="loading" class="loading-spinner"></span>
-                    {{ loading ? 'Processing...' : 'Process Text' }}
-                </button>
             </div>
         </div>
 
@@ -357,445 +357,239 @@ export default {
 
 <style scoped>
 #stylesage {
-    padding: 20px;
-    max-width: 1000px;
+    padding: 16px 24px;
+    max-width: 1200px;
     margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .input-header {
-    text-align: center;
-    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-.input-header h2 {
+.header-left {
+    text-align: left;
+}
+
+.header-left h2 {
     margin: 0;
     color: #2563eb;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .subtitle {
-    margin: 8px 0 0;
+    margin: 4px 0 0;
     color: #64748b;
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.header-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 .input-container {
     background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
-.controls {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .control-group {
-    flex: 1;
-    min-width: 200px;
-}
-
-.control-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #4b5563;
-    font-weight: 500;
+    min-width: 120px;
 }
 
 .styled-select {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: 6px;
+    font-size: 13px;
     background-color: white;
     cursor: pointer;
-    transition: all 0.2s;
-}
-
-.styled-select:hover {
-    border-color: #2563eb;
-}
-
-.text-area-container {
-    position: relative;
 }
 
 .text-input {
     width: 100%;
-    min-height: 150px;
-    padding: 16px;
+    min-height: 120px;
+    padding: 12px;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 14px;
     line-height: 1.5;
     resize: none;
-    transition: all 0.2s;
-    margin-bottom: 16px;
-    text-align: left;
-}
-
-.text-input:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    margin-bottom: 12px;
 }
 
 .process-button {
-    width: 100%;
-    padding: 12px 24px;
+    padding: 8px 16px;
     background-color: #2563eb;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 13px;
     font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-}
-
-.process-button:hover:not(:disabled) {
-    background-color: #1d4ed8;
-}
-
-.process-button:disabled {
-    background-color: #93c5fd;
-    cursor: not-allowed;
-}
-
-.loading-spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid #ffffff;
-    border-radius: 50%;
-    border-top-color: transparent;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    white-space: nowrap;
+    height: 35px;
 }
 
 .results-container {
-    margin-top: 24px;
+    margin-top: 16px;
 }
 
 .result-item {
     background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .result-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    text-align: left;
+    margin-bottom: 12px;
 }
 
 .result-header h3 {
     margin: 0;
-    color: #1f2937;
-    font-size: 18px;
-    text-align: left;
+    font-size: 16px;
 }
 
 .result-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
-.format-button {
+.format-button, .copy-button {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
+    gap: 4px;
+    padding: 6px 12px;
     background-color: #f3f4f6;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     color: #4b5563;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.format-button:hover {
-    background-color: #e5e7eb;
-}
-
-.format-button.active {
-    background-color: #2563eb;
-    color: white;
-}
-
-.copy-button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    background-color: #f3f4f6;
-    border: none;
-    border-radius: 6px;
-    color: #4b5563;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.copy-button:hover {
-    background-color: #e5e7eb;
-}
-
-.copy-icon {
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .result-text {
-    white-space: pre-wrap;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     color: #1f2937;
     background-color: #f9fafb;
-    padding: 16px;
+    padding: 12px;
     border-radius: 6px;
     text-align: left;
-}
-
-.result-text.formatted {
-    white-space: normal;
-}
-
-.text-block {
-    margin-bottom: 20px;
-    padding: 0 4px;
-}
-
-.text-block:last-child {
-    margin-bottom: 0;
-}
-
-.block-header {
-    font-weight: 600;
-    color: #1f2937;
-    font-size: 1.15em;
-    margin: 24px 0 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e5e7eb;
-    text-align: left;
-}
-
-.block-option {
-    margin: 12px 0;
-    padding: 16px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    text-align: left;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.option-title {
-    font-weight: 600;
-    color: #2563eb;
-    margin-bottom: 8px;
-    text-align: left;
-    font-size: 1.05em;
-}
-
-.option-content {
-    color: #4b5563;
-    line-height: 1.6;
-    text-align: left;
-    padding-left: 8px;
-    border-left: 2px solid #e5e7eb;
-}
-
-.block-list {
-    margin: 8px 0;
-    padding-left: 16px;
-    text-align: left;
-}
-
-.list-item {
-    margin: 4px 0;
-    color: #4b5563;
-    line-height: 1.5;
-    text-align: left;
-    position: relative;
-    padding-left: 8px;
-}
-
-.block-text {
-    color: #4b5563;
-    line-height: 1.6;
-    margin: 8px 0;
-    text-align: left;
-}
-
-.block-separator {
-    height: 1px;
-    background-color: #e5e7eb;
-    margin: 24px 0;
-}
-
-.option-group {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.option-group-title {
-    font-size: 1.25em;
-    font-weight: 600;
-    color: #1f2937;
-    margin: 0 0 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #e5e7eb;
-}
-
-.option-sections {
-    display: grid;
-    gap: 20px;
-}
-
-.option-section {
-    background: #f9fafb;
-    padding: 16px;
-    border-radius: 8px;
-    border-left: 3px solid #2563eb;
-}
-
-.section-title {
-    font-weight: 600;
-    color: #2563eb;
-    margin-bottom: 8px;
-    font-size: 1.1em;
-}
-
-.section-content {
-    color: #4b5563;
-    line-height: 1.6;
-    white-space: pre-wrap;
-}
-
-.standalone-section {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .main-section {
     background: white;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .main-section-title {
-    font-size: 1.4em;
+    font-size: 16px;
     font-weight: 600;
     color: #1f2937;
-    margin: 0 0 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #e5e7eb;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
 }
 
 .sub-section {
     background: #f8fafc;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 24px;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    text-align: left;
 }
 
 .sub-section-title {
-    font-size: 1.2em;
+    font-size: 15px;
     font-weight: 600;
     color: #2563eb;
-    margin: 0 0 16px;
+    margin: 0 0 8px;
+    text-align: left;
 }
 
 .section-content {
     display: grid;
-    gap: 16px;
+    gap: 12px;
+    text-align: left;
 }
 
 .section-item {
     background: white;
-    border-radius: 8px;
-    padding: 16px;
-    border-left: 3px solid #2563eb;
-}
-
-.content-block {
-    display: grid;
-    gap: 8px;
+    border-radius: 6px;
+    padding: 12px;
+    border-left: 2px solid #2563eb;
 }
 
 .block-title {
     font-weight: 600;
     color: #2563eb;
-    font-size: 1.1em;
+    font-size: 14px;
+    margin-bottom: 4px;
+    text-align: left;
 }
 
-.block-content {
+.block-content, .list-items {
     color: #4b5563;
-    line-height: 1.6;
-}
-
-.list-block, .numbered-list-block {
-    display: grid;
-    gap: 8px;
-}
-
-.list-title {
-    font-weight: 500;
-    color: #4b5563;
+    line-height: 1.5;
+    font-size: 14px;
+    text-align: left;
 }
 
 .list-items {
-    margin: 0;
-    padding-left: 24px;
-    color: #4b5563;
-    line-height: 1.6;
+    margin: 4px 0 0;
+    padding-left: 20px;
 }
 
 .list-items li {
-    margin-bottom: 8px;
-}
-
-.list-items li:last-child {
-    margin-bottom: 0;
+    margin-bottom: 4px;
 }
 
 @media (max-width: 640px) {
     #stylesage {
-        padding: 16px;
-    }
-
-    .control-group {
-        min-width: 100%;
+        padding: 12px;
     }
 
     .input-container,
     .result-item {
-        padding: 16px;
+        padding: 12px;
+    }
+
+    .input-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-controls {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .control-group {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .process-button {
+        width: auto;
     }
 }
 </style>
