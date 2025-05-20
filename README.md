@@ -9,3 +9,4 @@ It pertains to the idea of simplifying task management by centralizing different
 
 - Translators: https://github.com/hhankj2u/go-translators
 - Prompts: https://github.com/danielmiessler/fabric
+- StyleSage: Text Assistant - Enhance your writing with AI-powered suggestions
