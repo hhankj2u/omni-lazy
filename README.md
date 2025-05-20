@@ -1,4 +1,4 @@
-## About
+![image](https://github.com/user-attachments/assets/7b63dd23-3c05-48bf-8685-a1c52ed9b108)## About
 ![image](https://github.com/user-attachments/assets/f728f24e-70e8-4b05-8046-e3ce198208cb)
 
 A versatile and flexible application designed to handle a wide variety of tasks or data inputs without the need for specialized tools.
@@ -9,3 +9,5 @@ It pertains to the idea of simplifying task management by centralizing different
 
 - Translators: https://github.com/hhankj2u/go-translators
 - Prompts: https://github.com/danielmiessler/fabric
+- StyleSage: Text Assistant - Enhance your writing with AI-powered suggestions
+![image](https://github.com/user-attachments/assets/64ebe146-daf1-4ffd-8a8a-071f4177bd74)
