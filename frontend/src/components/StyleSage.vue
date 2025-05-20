@@ -11,8 +11,8 @@
                         <select v-model="selectedMode" class="styled-select">
                             <option value="quick_fix">✍️ Quick Fix</option>
                             <option value="slack_message">💬 Slack</option>
-                            <option value="email_reply">📧 Email</option>
                             <option value="daily_chat">🗣️ Chat</option>
+                            <option value="email_reply">📧 Email</option>
                             <option value="meeting_summary">📝 Summary</option>
                             <option value="status_update">📊 Status</option>
                         </select>
@@ -346,12 +346,12 @@ export default {
     width: 100%;
     box-sizing: border-box;
     text-align: left;
-    background-color: #1a1a1a;
-    color: #c1c2c5;
+    background-color: #1e2227;
+    color: #a9b1ba;
 }
 
 .input-container {
-    background: #1a1a1a;
+    background: #1e2227;
     padding: 12px 16px;
     width: 100%;
     box-sizing: border-box;
@@ -438,14 +438,14 @@ export default {
     line-height: 1.4;
     resize: none;
     margin: 8px 0;
-    background-color: #25262b;
-    color: #c1c2c5;
+    background-color: #252931;
+    color: #a9b1ba;
     box-sizing: border-box;
     display: block;
 }
 
 .text-input::placeholder {
-    color: #909296;
+    color: #636973;
 }
 
 .process-button {
@@ -504,7 +504,7 @@ export default {
 .result-text {
     font-size: 14px;
     line-height: 1.5;
-    color: #c1c2c5;
+    color: #a9b1ba;
     text-align: left;
 }
 
@@ -517,7 +517,7 @@ export default {
 
 .result-header h3 {
     margin: 0;
-    color: #c1c2c5;
+    color: #a9b1ba;
     font-size: 24px;
     font-weight: 400;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -556,15 +556,15 @@ export default {
     white-space: pre-line;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     line-height: 1.4;
-    color: #c1c2c5;
-    background-color: #25262b;
+    color: #a9b1ba;
+    background-color: #252931;
     padding: 16px;
     border-radius: 8px;
     margin-top: 8px;
 }
 
 .plain-text {
-    background-color: #25262b;
+    background-color: #252931;
     padding: 16px;
     border-radius: 8px;
     margin-top: 8px;
@@ -588,7 +588,7 @@ export default {
 
 .content :deep(p) {
     margin: 0;
-    color: #c1c2c5;
+    color: #a9b1ba;
 }
 
 .content :deep(ul), .content :deep(ol) {
@@ -597,12 +597,12 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    color: #c1c2c5;
+    color: #a9b1ba;
 }
 
 .content :deep(li) {
     margin: 0;
-    color: #c1c2c5;
+    color: #a9b1ba;
     display: flex;
     gap: 0.5em;
     align-items: baseline;
@@ -611,36 +611,36 @@ export default {
 }
 
 .content :deep(li)::marker {
-    color: #909296;
+    color: #636973;
 }
 
 .content :deep(strong) {
     font-weight: 600;
-    color: #c1c2c5;
+    color: #a9b1ba;
 }
 
 .content :deep(em) {
     font-style: italic;
-    color: #909296;
+    color: #636973;
 }
 
 .content :deep(h1), .content :deep(h2), .content :deep(h3) {
     margin: 0;
     font-weight: 600;
-    color: #c1c2c5;
+    color: #a9b1ba;
 }
 
 .content :deep(code) {
-    background-color: #25262b;
+    background-color: #252931;
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.9em;
-    color: #c1c2c5;
+    color: #a9b1ba;
 }
 
 .content :deep(pre) {
-    background-color: #25262b;
+    background-color: #252931;
     padding: 1em;
     border-radius: 8px;
     overflow-x: auto;
@@ -669,8 +669,8 @@ export default {
 }
 
 .format-button.active {
-    background-color: #25262b;
-    color: #c1c2c5;
+    background-color: #252931;
+    color: #a9b1ba;
 }
 
 @media (max-width: 640px) {

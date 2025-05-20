@@ -56,8 +56,8 @@ html, body {
 .app-container {
   width: 100%;
   height: 100vh;
-  background-color: #1e1e1e;
-  color: #e5e7eb;
+  background-color: #1e2227;
+  color: #a9b1ba;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -173,7 +173,7 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   margin-left: 32px;
-  background-color: #1e1e1e;
+  background-color: #1e2227;
   max-width: calc(100vw - 48px);
 }
 
