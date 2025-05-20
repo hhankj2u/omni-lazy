@@ -127,6 +127,8 @@ export default {
     width: 96%;
     padding: 10px;
     margin-top: -10px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .input-container textarea,
@@ -137,6 +139,11 @@ export default {
 
 .input-container textarea {
     width: 50vw;
+    min-height: 80px;
+    resize: vertical;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
 .input-container .pattern-select {
@@ -146,16 +153,58 @@ export default {
 .input-container .language {
     width: 50px;
     text-align: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .input-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        gap: 12px;
+        position: static;
+        width: auto;
+        margin: 0 0 16px;
+    }
+
+    .input-container textarea {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .input-container .pattern-select {
+        width: 100%;
+    }
+
+    .input-container .language {
+        width: 100%;
+    }
+
+    .results-container {
+        margin-top: 0;
+    }
+
+    .clear-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
 }
 
 .results-container {
     margin-top: 120px;
     text-align: left;
     overflow-y: auto;
+    padding: 0 12px;
 }
 
 .result-item {
     margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .input-display {
@@ -166,11 +215,12 @@ export default {
 
 .result-display {
     margin-top: 10px;
+    line-height: 1.5;
 }
 
 hr {
     border: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e5e7eb;
     margin: 20px 0;
 }
 
@@ -178,7 +228,7 @@ hr {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007bff;
+    background-color: #2563eb;
     color: white;
     border: none;
     border-radius: 50%;
@@ -187,9 +237,14 @@ hr {
     font-size: 24px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
 .clear-button:hover {
-    background-color: #0056b3;
+    background-color: #1d4ed8;
+    transform: scale(1.05);
 }
 </style>

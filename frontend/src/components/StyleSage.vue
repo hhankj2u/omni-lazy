@@ -610,15 +610,50 @@ export default {
     .header-controls {
         width: 100%;
         flex-wrap: wrap;
+        gap: 8px;
     }
 
     .control-group {
         flex: 1;
-        min-width: 100px;
+        min-width: 140px;
     }
 
     .process-button {
-        width: auto;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .text-input {
+        min-height: 100px;
+        font-size: 16px;
+    }
+
+    .result-text {
+        font-size: 15px;
+    }
+
+    .main-section,
+    .section-item {
+        padding: 12px;
+    }
+
+    .main-section-title {
+        font-size: 15px;
+    }
+
+    .block-content,
+    .list-items {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .control-group {
+        min-width: 100%;
+    }
+
+    .styled-select {
+        width: 100%;
     }
 }
 </style>
