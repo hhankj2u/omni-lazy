@@ -346,12 +346,12 @@ export default {
     width: 100%;
     box-sizing: border-box;
     text-align: left;
-    background-color: #1e1e1e;
-    color: #e5e7eb;
+    background-color: #1a1a1a;
+    color: #c1c2c5;
 }
 
 .input-container {
-    background: #1e1e1e;
+    background: #1a1a1a;
     padding: 12px 16px;
     width: 100%;
     box-sizing: border-box;
@@ -438,14 +438,14 @@ export default {
     line-height: 1.4;
     resize: none;
     margin: 8px 0;
-    background-color: #1a1a1a;
-    color: #e5e7eb;
+    background-color: #25262b;
+    color: #c1c2c5;
     box-sizing: border-box;
     display: block;
 }
 
 .text-input::placeholder {
-    color: #6b7280;
+    color: #909296;
 }
 
 .process-button {
@@ -504,7 +504,7 @@ export default {
 .result-text {
     font-size: 14px;
     line-height: 1.5;
-    color: #e5e7eb;
+    color: #c1c2c5;
     text-align: left;
 }
 
@@ -517,7 +517,7 @@ export default {
 
 .result-header h3 {
     margin: 0;
-    color: #e5e7eb;
+    color: #c1c2c5;
     font-size: 24px;
     font-weight: 400;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -536,7 +536,7 @@ export default {
     background-color: #2563eb;
     border: none;
     border-radius: 6px;
-    color: white;
+    color: #ffffff;
     font-size: 13px;
     transition: all 0.2s ease;
     height: 32px;
@@ -556,15 +556,15 @@ export default {
     white-space: pre-line;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     line-height: 1.4;
-    color: #e5e7eb;
-    background-color: #1a1a1a;
+    color: #c1c2c5;
+    background-color: #25262b;
     padding: 16px;
     border-radius: 8px;
     margin-top: 8px;
 }
 
 .plain-text {
-    background-color: #1a1a1a;
+    background-color: #25262b;
     padding: 16px;
     border-radius: 8px;
     margin-top: 8px;
@@ -588,7 +588,7 @@ export default {
 
 .content :deep(p) {
     margin: 0;
-    color: #e5e7eb;
+    color: #c1c2c5;
 }
 
 .content :deep(ul), .content :deep(ol) {
@@ -597,12 +597,12 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    color: #e5e7eb;
+    color: #c1c2c5;
 }
 
 .content :deep(li) {
     margin: 0;
-    color: #e5e7eb;
+    color: #c1c2c5;
     display: flex;
     gap: 0.5em;
     align-items: baseline;
@@ -611,43 +611,36 @@ export default {
 }
 
 .content :deep(li)::marker {
-    color: #808080;
-    unicode-bidi: isolate;
-    font-variant-numeric: tabular-nums;
-    text-align: match-parent;
-    text-transform: none;
-    text-indent: 0px !important;
-    text-align-last: left !important;
-    white-space: pre;
+    color: #909296;
 }
 
 .content :deep(strong) {
     font-weight: 600;
-    color: #e5e7eb;
+    color: #c1c2c5;
 }
 
 .content :deep(em) {
     font-style: italic;
-    color: #808080;
+    color: #909296;
 }
 
 .content :deep(h1), .content :deep(h2), .content :deep(h3) {
     margin: 0;
     font-weight: 600;
-    color: #e5e7eb;
+    color: #c1c2c5;
 }
 
 .content :deep(code) {
-    background-color: #1a1a1a;
+    background-color: #25262b;
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.9em;
-    color: #e5e7eb;
+    color: #c1c2c5;
 }
 
 .content :deep(pre) {
-    background-color: #1a1a1a;
+    background-color: #25262b;
     padding: 1em;
     border-radius: 8px;
     overflow-x: auto;
@@ -676,8 +669,8 @@ export default {
 }
 
 .format-button.active {
-    background-color: #1a1a1a;
-    color: white;
+    background-color: #25262b;
+    color: #c1c2c5;
 }
 
 @media (max-width: 640px) {
