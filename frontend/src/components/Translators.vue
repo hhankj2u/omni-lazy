@@ -1,15 +1,24 @@
 <template>
   <div id="translators">
-    <!-- Container for input and button -->
     <div class="input-container">
-      <input v-model="term" placeholder="Enter word" @keyup.enter="search" />
-      <button @click="search">Search</button>
-      <label>
-        <input type="checkbox" v-model="disableClipboard" /> Disable Clipboard
-      </label>
+      <div class="input-header">
+        <div class="header-left">
+          <h2>Dictionary Lookup</h2>
+          <p class="subtitle">Search multiple dictionaries at once</p>
+        </div>
+        <div class="header-controls">
+          <div class="search-group">
+            <input v-model="term" placeholder="Enter word" @keyup.enter="search" />
+            <button @click="search">Search</button>
+          </div>
+          <label class="clipboard-toggle">
+            <input type="checkbox" v-model="disableClipboard" />
+            <span>Disable Clipboard</span>
+          </label>
+        </div>
+      </div>
     </div>
 
-    <!-- Render resultHtml in an iframe for full HTML loading -->
     <div class="results-container">
       <div v-for="(html, name) in results" :key="name" class="result-item">
         <h2>{{ name }} Dictionary</h2>
@@ -82,59 +91,186 @@ export default {
 
 <style scoped>
 #translators {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* Center children vertically */
-  height: 100vh;
-  /* Set full height for the app */
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input-container {
-  display: flex;
-  /* Use flex to align input and button */
-  justify-content: center;
-  /* Center children horizontally */
-  align-items: center;
-  /* Center children vertically */
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
-.input-container input {
-  margin-right: 10px;
-  /* Space between input and button */
-  padding: 10px;
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.header-left {
+  text-align: left;
+}
+
+.header-left h2 {
+  margin: 0;
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.header-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 300px;
+}
+
+.search-group {
+  display: flex;
+  gap: 8px;
+}
+
+.search-group input {
   flex: 1;
-  /* Allow input to grow and take available space */
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9fafb;
+}
+
+.search-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.search-group button {
+  padding: 8px 16px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-group button:hover {
+  background-color: #1d4ed8;
+}
+
+.clipboard-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.clipboard-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .results-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   width: 100%;
-  justify-content: space-evenly;
-  height: calc(100vh - 80px);
-  /* Adjust for input/button height */
-  overflow-y: auto;
-  /* Add scrolling if content exceeds height */
+  box-sizing: border-box;
 }
 
 .result-item {
-  flex: 1 1 30%;
-  /* Each item takes up roughly a third of the container */
-  max-width: 30%;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  /* Full height of the container */
+  height: auto;
+}
+
+.result-item h2 {
+  margin: 0;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 iframe {
   flex: 1;
   border: none;
-  height: 100%;
-  /* Full height within result-item */
   width: 100%;
+  min-height: 400px;
+  background: white;
+}
+
+@media (max-width: 768px) {
+  .input-container {
+    padding: 16px;
+  }
+
+  .input-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-left h2 {
+    font-size: 20px;
+  }
+
+  .header-controls {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .search-group {
+    flex-direction: column;
+  }
+
+  .search-group input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .search-group button {
+    width: 100%;
+  }
+
+  .results-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .result-item h2 {
+    padding: 12px 16px;
+  }
 }
 </style>
