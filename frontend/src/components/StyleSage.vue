@@ -33,7 +33,7 @@
                         class="process-button"
                     >
                         <span v-if="loading" class="loading-spinner"></span>
-                        {{ loading ? 'Processing...' : 'Process' }}
+                        {{ loading ? 'Processing...' : 'Process (⌃↵)' }}
                     </button>
                 </div>
             </div>
@@ -44,6 +44,7 @@
                     :placeholder="getPlaceholder()"
                     class="text-input"
                     @input="autoGrow"
+                    @keydown.ctrl.enter.prevent="processText"
                     ref="textarea"
                 ></textarea>
             </div>
@@ -129,7 +130,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { ProcessStyleSage } from '../../wailsjs/go/main/App';
 
 export default {
@@ -142,6 +143,55 @@ export default {
         const loading = ref(false);
         const textarea = ref(null);
         const showFormatted = ref(true);
+        const processingTimeout = ref(null);
+
+        // Debounced process function
+        const debouncedProcess = () => {
+            if (processingTimeout.value) {
+                clearTimeout(processingTimeout.value);
+            }
+
+            processingTimeout.value = setTimeout(async () => {
+                if (!inputText.value.trim() || loading.value) return;
+
+                loading.value = true;
+                try {
+                    const request = {
+                        text: inputText.value,
+                        mode: selectedMode.value,
+                        style: selectedMode.value === 'quick_fix' ? 'neutral' : selectedStyle.value,
+                        context: context.value
+                    };
+
+                    const response = await ProcessStyleSage(request);
+                    result.value = response;
+                } catch (error) {
+                    console.error('Error processing text:', error);
+                    result.value = 'Error: ' + error.message;
+                } finally {
+                    loading.value = false;
+                }
+            }, 300); // 300ms debounce delay
+        };
+
+        // Add keyboard event handler for Mac Command+Enter
+        const handleKeydown = (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && inputText.value.trim() && !loading.value) {
+                e.preventDefault();
+                debouncedProcess();
+            }
+        };
+
+        onMounted(() => {
+            window.addEventListener('keydown', handleKeydown);
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener('keydown', handleKeydown);
+            if (processingTimeout.value) {
+                clearTimeout(processingTimeout.value);
+            }
+        });
 
         const getPlaceholder = () => {
             const placeholders = {
@@ -313,28 +363,6 @@ export default {
             showFormatted.value = !showFormatted.value;
         };
 
-        const processText = async () => {
-            if (!inputText.value.trim()) return;
-
-            loading.value = true;
-            try {
-                const request = {
-                    text: inputText.value,
-                    mode: selectedMode.value,
-                    style: selectedStyle.value,
-                    context: context.value
-                };
-
-                const response = await ProcessStyleSage(request);
-                result.value = response;
-            } catch (error) {
-                console.error('Error processing text:', error);
-                result.value = 'Error: ' + error.message;
-            } finally {
-                loading.value = false;
-            }
-        };
-
         return {
             inputText,
             selectedMode,
@@ -349,7 +377,7 @@ export default {
             autoGrow,
             copyToClipboard,
             toggleFormatting,
-            processText
+            processText: debouncedProcess
         };
     }
 };
@@ -439,6 +467,7 @@ export default {
     gap: 8px;
     white-space: nowrap;
     height: 35px;
+    min-width: 120px;
 }
 
 .results-container {

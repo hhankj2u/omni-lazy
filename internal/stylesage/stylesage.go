@@ -44,26 +44,38 @@ func (s *StyleSage) ProcessText(ctx context.Context, req Request) (string, error
 
 	switch req.Mode {
 	case "quick_fix":
-		prompt = fmt.Sprintf(`%sCorrect any spelling, grammar, or language issues in this text while keeping its original style and meaning:
+		prompt = fmt.Sprintf(`%sYou are a creative text editor. Your task is to enhance and correct the following text, providing both a standard correction and tone variations.
 
-Input text:
+Text to improve:
 %s
 
-Format your response using markdown with clear sections:
+Respond in this exact format:
 
 *Original Text*
-[Original text in English]
+[Copy of the input text]
 
-*Corrected Version*
-[Corrected English text with minimal necessary changes]
+*Standard Correction*
+[Basic corrected version with minimal necessary changes]
 
-*Changes Made*
-- [List each significant change]
-- [Explain why each change was made]
+*Creative Variations*
 
-*Style Notes*
-- **Tone:** [How the original style was preserved]
-- **Flow:** [How natural flow was maintained]`, englishPrefix, req.Text)
+**Casual & Friendly**
+[A more relaxed, conversational version]
+
+**Professional & Formal**
+[A more polished, business-appropriate version]
+
+**Energetic & Engaging**
+[A more dynamic, attention-grabbing version]
+
+*Technical Improvements*
+- [List each grammar/spelling fix]
+- [Explain why each change improves the text]
+
+*Style Analysis*
+- **Original Tone:** [Analysis of the input's style]
+- **Flow:** [How readability was enhanced]
+- **Impact:** [How each variation changes the message's effect]`, englishPrefix, req.Text)
 
 	case "slack_message":
 		prompt = fmt.Sprintf(`%sHelp me write a professional Slack message in English with the following content, making it %s in tone:
