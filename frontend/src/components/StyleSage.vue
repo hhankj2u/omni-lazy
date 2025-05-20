@@ -352,10 +352,10 @@ export default {
 
 .input-container {
     background: #1e1e1e;
-    padding: 16px;
+    padding: 12px 16px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     text-align: left;
 }
 
@@ -437,7 +437,7 @@ export default {
     font-size: 14px;
     line-height: 1.4;
     resize: none;
-    margin: 12px 0 8px;
+    margin: 8px 0;
     background-color: #1a1a1a;
     color: #e5e7eb;
     box-sizing: border-box;
@@ -498,7 +498,7 @@ export default {
 }
 
 .result-item {
-    margin-top: 16px;
+    margin-top: 8px;
 }
 
 .result-text {
@@ -512,7 +512,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .result-header h3 {
@@ -560,14 +560,14 @@ export default {
     background-color: #1a1a1a;
     padding: 16px;
     border-radius: 8px;
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .plain-text {
     background-color: #1a1a1a;
     padding: 16px;
     border-radius: 8px;
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .plain-content {
