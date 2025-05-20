@@ -65,64 +65,11 @@
                         </button>
                     </div>
                 </div>
-                <div class="result-text" :class="{ 'formatted': showFormatted }">
-                    <template v-if="showFormatted">
-                        <div v-for="(block, index) in formattedBlocks" :key="index" class="text-block">
-                            <template v-if="block.type === 'main_section'">
-                                <div class="main-section">
-                                    <h2 class="main-section-title">{{ block.title }}</h2>
-                                    <div class="section-content">
-                                        <div v-for="(item, iIndex) in block.items" :key="iIndex" class="section-item">
-                                            <div v-if="item.type === 'block'" class="content-block">
-                                                <div v-if="item.title" class="block-title">{{ item.title }}</div>
-                                                <div class="block-content">{{ item.content }}</div>
-                                            </div>
-                                            <div v-else-if="item.type === 'list'" class="list-block">
-                                                <div v-if="item.title" class="list-title">{{ item.title }}</div>
-                                                <ul class="list-items">
-                                                    <li v-for="(listItem, lIndex) in item.items" :key="lIndex">{{ listItem }}</li>
-                                                </ul>
-                                            </div>
-                                            <div v-else-if="item.type === 'numbered_list'" class="numbered-list-block">
-                                                <div v-if="item.title" class="list-title">{{ item.title }}</div>
-                                                <ol class="list-items">
-                                                    <li v-for="(listItem, lIndex) in item.items" :key="lIndex">{{ listItem }}</li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                            <template v-else-if="block.type === 'sub_section'">
-                                <div class="sub-section">
-                                    <h3 class="sub-section-title">{{ block.title }}</h3>
-                                    <div class="section-content">
-                                        <div v-for="(item, iIndex) in block.items" :key="iIndex" class="section-item">
-                                            <div v-if="item.type === 'block'" class="content-block">
-                                                <div v-if="item.title" class="block-title">{{ item.title }}</div>
-                                                <div class="block-content">{{ item.content }}</div>
-                                            </div>
-                                            <div v-else-if="item.type === 'list'" class="list-block">
-                                                <div v-if="item.title" class="list-title">{{ item.title }}</div>
-                                                <ul class="list-items">
-                                                    <li v-for="(listItem, lIndex) in item.items" :key="lIndex">{{ listItem }}</li>
-                                                </ul>
-                                            </div>
-                                            <div v-else-if="item.type === 'numbered_list'" class="numbered-list-block">
-                                                <div v-if="item.title" class="list-title">{{ item.title }}</div>
-                                                <ol class="list-items">
-                                                    <li v-for="(listItem, lIndex) in item.items" :key="lIndex">{{ listItem }}</li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-                    </template>
-                    <template v-else>
-                        {{ result }}
-                    </template>
+                <div class="result-text">
+                    <div :class="showFormatted ? 'formatted-text' : 'plain-text'">
+                        <pre v-if="!showFormatted" class="plain-content">{{ result }}</pre>
+                        <div v-else v-html="formattedResult" class="content"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,6 +79,7 @@
 <script>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { ProcessStyleSage } from '../../wailsjs/go/main/App';
+import { marked } from 'marked';
 
 export default {
     setup() {
@@ -359,8 +307,13 @@ export default {
             return parseOutput(result.value);
         });
 
+        const formattedResult = computed(() => {
+            return marked(result.value);
+        });
+
         const toggleFormatting = () => {
             showFormatted.value = !showFormatted.value;
+            console.log('Toggle formatting:', showFormatted.value);
         };
 
         return {
@@ -373,6 +326,7 @@ export default {
             textarea,
             showFormatted,
             formattedBlocks,
+            formattedResult,
             getPlaceholder,
             autoGrow,
             copyToClipboard,
@@ -391,77 +345,82 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     width: 100%;
     box-sizing: border-box;
+    text-align: left;
+    background-color: #1e1e1e;
+    color: #e5e7eb;
 }
 
 .input-container {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid #e5e7eb;
+    background: #1e1e1e;
+    padding: 16px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    text-align: left;
 }
 
 .input-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .header-left {
     text-align: left;
+    flex: 1;
 }
 
 .header-left h2 {
     margin: 0;
-    color: #2563eb;
-    font-size: 24px;
+    color: #60a5fa;
+    font-size: 20px;
     font-weight: 600;
+    text-align: left;
 }
 
 .subtitle {
-    margin: 4px 0 0;
-    color: #64748b;
-    font-size: 14px;
+    margin: 2px 0 0;
+    color: #9ca3af;
+    font-size: 13px;
 }
 
 .header-controls {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
 }
 
 .control-group {
-    min-width: 140px;
+    min-width: 130px;
 }
 
 .styled-select {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    padding: 6px 10px;
+    border: 1px solid #2c2d32;
     border-radius: 6px;
     font-size: 13px;
-    background-color: white;
+    background-color: #1a1b1e;
     cursor: pointer;
-    color: #4b5563;
+    color: #e5e7eb;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23464A54%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e5e7eb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
     background-size: 10px;
     padding-right: 24px;
+    height: 32px;
 }
 
 .styled-select:hover {
-    border-color: #94a3b8;
+    border-color: #3b82f6;
 }
 
 .styled-select:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
 }
 
 .text-area-container {
@@ -471,22 +430,27 @@ export default {
 
 .text-input {
     width: 100%;
-    min-height: 120px;
-    padding: 12px;
-    border: 1px solid #e5e7eb;
+    min-height: 100px;
+    padding: 10px;
+    border: none;
     border-radius: 8px;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.4;
     resize: none;
-    margin: 16px 0;
-    background-color: #f9fafb;
+    margin: 12px 0 8px;
+    background-color: #1a1a1a;
+    color: #e5e7eb;
     box-sizing: border-box;
     display: block;
 }
 
+.text-input::placeholder {
+    color: #6b7280;
+}
+
 .process-button {
-    padding: 8px 16px;
-    background-color: #2563eb;
+    padding: 6px 14px;
+    background-color: #3b82f6;
     color: white;
     border: none;
     border-radius: 6px;
@@ -497,14 +461,15 @@ export default {
     justify-content: center;
     gap: 8px;
     white-space: nowrap;
-    height: 36px;
-    min-width: 120px;
+    height: 32px;
+    min-width: 110px;
     transition: all 0.2s ease;
     box-shadow: none;
+    cursor: pointer;
 }
 
 .process-button:hover:not(:disabled) {
-    background-color: #1d4ed8;
+    background-color: #2563eb;
 }
 
 .process-button:disabled {
@@ -529,28 +494,38 @@ export default {
 }
 
 .results-container {
-    margin-top: 16px;
+    padding: 0 16px;
 }
 
 .result-item {
-    margin-top: 20px;
+    margin-top: 16px;
+}
+
+.result-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #e5e7eb;
+    text-align: left;
 }
 
 .result-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
 
 .result-header h3 {
     margin: 0;
-    font-size: 16px;
+    color: #e5e7eb;
+    font-size: 24px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .result-actions {
     display: flex;
-    gap: 6px;
+    gap: 8px;
 }
 
 .format-button, .copy-button {
@@ -558,18 +533,18 @@ export default {
     align-items: center;
     gap: 4px;
     padding: 6px 12px;
-    background-color: #f3f4f6;
-    border: 1px solid #e5e7eb;
+    background-color: #2563eb;
+    border: none;
     border-radius: 6px;
-    color: #4b5563;
+    color: white;
     font-size: 13px;
     transition: all 0.2s ease;
     height: 32px;
+    cursor: pointer;
 }
 
 .format-button:hover, .copy-button:hover {
-    background-color: #e5e7eb;
-    color: #1f2937;
+    background-color: #1d4ed8;
 }
 
 .format-icon, .copy-icon {
@@ -577,95 +552,132 @@ export default {
     line-height: 1;
 }
 
-.result-text {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #1f2937;
-    background-color: white;
-    text-align: left;
-}
-
-.main-section {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
-}
-
-.main-section-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1f2937;
-    margin: 0 0 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.section-content {
-    display: grid;
-    gap: 16px;
-}
-
-.section-item {
-    background: #f9fafb;
-    border-radius: 8px;
+.formatted-text {
+    white-space: pre-line;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    line-height: 1.4;
+    color: #e5e7eb;
+    background-color: #1a1a1a;
     padding: 16px;
-    position: relative;
-}
-
-.section-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: #2563eb;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-.block-title {
-    font-weight: 600;
-    color: #2563eb;
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.block-content {
-    color: #4b5563;
-    line-height: 1.5;
-    font-size: 14px;
-}
-
-.list-items {
-    margin: 8px 0 0;
-    padding-left: 24px;
-    color: #4b5563;
-}
-
-.list-items li {
-    margin-bottom: 6px;
-}
-
-.list-items li:last-child {
-    margin-bottom: 0;
-}
-
-.sub-section {
-    background: white;
     border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: 1px solid #e5e7eb;
+    margin-top: 12px;
 }
 
-.sub-section-title {
-    font-size: 15px;
+.plain-text {
+    background-color: #1a1a1a;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.plain-content {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    line-height: 1.5;
+    color: #e5e7eb;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+}
+
+.content :deep(p) {
+    margin: 0;
+    color: #e5e7eb;
+}
+
+.content :deep(ul), .content :deep(ol) {
+    margin: 0;
+    padding-left: 1.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    color: #e5e7eb;
+}
+
+.content :deep(li) {
+    margin: 0;
+    color: #e5e7eb;
+    display: flex;
+    gap: 0.5em;
+    align-items: baseline;
+    line-height: 1.4;
+    text-align: match-parent;
+}
+
+.content :deep(li)::marker {
+    color: #808080;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-align: match-parent;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align-last: left !important;
+    white-space: pre;
+}
+
+.content :deep(strong) {
     font-weight: 600;
-    color: #2563eb;
-    margin: 0 0 12px;
+    color: #e5e7eb;
+}
+
+.content :deep(em) {
+    font-style: italic;
+    color: #808080;
+}
+
+.content :deep(h1), .content :deep(h2), .content :deep(h3) {
+    margin: 0;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.content :deep(code) {
+    background-color: #1a1a1a;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    color: #e5e7eb;
+}
+
+.content :deep(pre) {
+    background-color: #1a1a1a;
+    padding: 1em;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.content :deep(pre code) {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+.content :deep(blockquote) {
+    margin: 0;
+    padding-left: 1em;
+    border-left: 3px solid #3b82f6;
+    color: #9ca3af;
+}
+
+.content :deep(a) {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.content :deep(a:hover) {
+    text-decoration: underline;
+}
+
+.format-button.active {
+    background-color: #1a1a1a;
+    color: white;
 }
 
 @media (max-width: 640px) {
@@ -735,5 +747,83 @@ export default {
     .styled-select {
         width: 100%;
     }
+}
+
+.menu-backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.side-menu {
+    background-color: #1e1e1e;
+    border-right: 1px solid #333333;
+    color: #e5e7eb;
+}
+
+.side-menu a {
+    color: #808080;
+    text-decoration: none;
+}
+
+.side-menu a:hover {
+    color: #e5e7eb;
+}
+
+.side-menu a.active {
+    color: #2563eb;
+    background-color: #1a1a1a;
+}
+
+.tab-content {
+    background-color: #1e1e1e;
+}
+
+body {
+    background-color: #1e1e1e;
+    color: #e5e7eb;
+}
+
+#app {
+    background-color: #1e1e1e;
+    color: #e5e7eb;
+}
+
+.menu-item {
+    color: #808080;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    color: #e5e7eb;
+    background-color: #1a1a1a;
+}
+
+.menu-item.active {
+    color: #2563eb;
+    background-color: #1a1a1a;
+}
+
+.menu-header {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 8px;
+}
+
+.menu-close {
+    background-color: transparent;
+    border: none;
+    color: #808080;
+    padding: 8px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.menu-close:hover {
+    color: #e5e7eb;
 }
 </style>
