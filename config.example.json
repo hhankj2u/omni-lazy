@@ -1,0 +1,12 @@
+{
+  "ollama": {
+    "url": "http://localhost:11434",
+    "model": "gemma3:4b",
+    "seed_or_negative": 0,
+    "temperature_if_negative_seed": 0.0,
+    "pull_timeout": 0,
+    "http_timeout": 0,
+    "trim_space": true,
+    "verbose": false
+  }
+}
