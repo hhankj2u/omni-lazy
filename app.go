@@ -26,7 +26,7 @@ func NewApp() *App {
 	if err != nil {
 		// Log error but continue with nil styleSage
 		// The app will handle this gracefully in ProcessStyleSage
-		println("Warning: Failed to initialize StyleSage:", err.Error())
+		log.Printf("WARNING: Failed to initialize StyleSage: %s", err.Error())
 	}
 	return &App{
 		translators: translators,
