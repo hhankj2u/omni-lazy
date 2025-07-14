@@ -3,12 +3,15 @@ package stylesage
 import (
 	"context"
 	"fmt"
+	"time"
 
+	"github.com/hhankj2u/omni-lazy/internal/config"
 	"github.com/xyproto/ollamaclient/v2"
 )
 
 type StyleSage struct {
 	client *ollamaclient.Config
+	config *config.Config
 }
 
 type Request struct {
@@ -18,16 +21,32 @@ type Request struct {
 	Context string `json:"context"`
 }
 
-func NewStyleSage() *StyleSage {
-	// Initialize the Ollama client with the model
-	client := ollamaclient.New("gemma3:4b")
+func NewStyleSage() (*StyleSage, error) {
+	// Load configuration
+	cfg, err := config.LoadConfig(config.GetConfigPath())
+	if err != nil {
+		return nil, fmt.Errorf("failed to load config: %w", err)
+	}
+
+	// Initialize the Ollama client with configured parameters
+	client := ollamaclient.NewConfig(
+		cfg.Ollama.URL,
+		cfg.Ollama.Model,
+		cfg.Ollama.SeedOrNegative,
+		cfg.Ollama.TemperatureIfNegativeSeed,
+		time.Duration(cfg.Ollama.PullTimeout)*time.Second,
+		time.Duration(cfg.Ollama.HTTPTimeout)*time.Second,
+		cfg.Ollama.TrimSpace,
+		cfg.Ollama.Verbose,
+	)
 
 	// Set reproducible output for consistent results
 	client.SetReproducible()
 
 	return &StyleSage{
 		client: client,
-	}
+		config: cfg,
+	}, nil
 }
 
 func (s *StyleSage) ProcessText(ctx context.Context, req Request) (string, error) {
@@ -246,4 +265,9 @@ Format your response using markdown with clear sections:
 	}
 
 	return output, nil
+}
+
+// GetConfig returns the current configuration
+func (s *StyleSage) GetConfig() *config.Config {
+	return s.config
 }

@@ -4,6 +4,8 @@ import {stylesage} from '../models';
 
 export function FetchFabricResult(arg1:string):Promise<string>;
 
+export function GetStyleSageConfig():Promise<{[key: string]: any}>;
+
 export function ProcessStyleSage(arg1:stylesage.Request):Promise<string>;
 
 export function ReadClipboard():Promise<string>;
