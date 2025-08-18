@@ -254,9 +254,9 @@ Format your response using markdown with clear sections:
 	}
 
 	// Pull the model if needed
-	if err := s.client.PullIfNeeded(); err != nil {
-		return "", fmt.Errorf("failed to pull model: %w", err)
-	}
+	// if err := s.client.PullIfNeeded(); err != nil {
+	// 	return "", fmt.Errorf("failed to pull model: %w", err)
+	// }
 
 	// Generate the response using Ollama
 	output, err := s.client.GetOutput(prompt)
