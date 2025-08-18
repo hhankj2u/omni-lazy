@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/hhankj2u/omni-lazy/internal/prompts"
 	"github.com/hhankj2u/omni-lazy/internal/stylesage"
